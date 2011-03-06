@@ -1,6 +1,3 @@
-import noc.*;
-
-
 
 /************************************* VECTORFIELD ****************************************/
 class VECTORFIELD {
@@ -45,22 +42,22 @@ class VECTORFIELD {
 
 /************************************* NODE ****************************************/
 class msaNode {
-  Vector3D pos;   // position;
-  Vector3D vel;   // velocity;
-  Vector3D acc;   // acceleration
+  PVector pos;   // position;
+  PVector vel;   // velocity;
+  PVector acc;   // acceleration
 
-  Vector3D rot;   // rotation;
-  Vector3D rvel;  // rotational velocity;
-  Vector3D racc;  // rotational acceleration
+  PVector rot;   // rotation;
+  PVector rvel;  // rotational velocity;
+  PVector racc;  // rotational acceleration
   float radius;
   float mass;
   float time;
   float life;
   
-  msaNode(Vector3D p, Vector3D v, float tm, float tr, float l) {
-    pos = p.copy();
-    vel = v.copy();
-    acc = new Vector3D(0, 0, 0);
+  msaNode(PVector p, PVector v, float tm, float tr, float l) {
+    pos = p;
+    vel = v;
+    acc = new PVector(0, 0, 0);
     mass = tm;
     radius = tr;
     time = 0;
@@ -90,7 +87,7 @@ class msaNode {
 class msaPSystem extends msaNode {
   ArrayList nodes;
   
-  msaPSystem(Vector3D p, Vector3D v, float tm, float tr, float l)  {
+  msaPSystem(PVector p, PVector v, float tm, float tr, float l)  {
     super(p, v, tm, tr, l);
     nodes = new ArrayList();
   }
@@ -104,11 +101,11 @@ class msaPSystem extends msaNode {
   }
   
   void AddNode() {
-    nodes.add(new msaNode(pos, new Vector3D(random(-1, 1), random(-1, 1), 0), mass, random(radius), life));
+    nodes.add(new msaNode(pos, new PVector(random(-1, 1), random(-1, 1), 0), mass, random(radius), life));
   }
   
-  void setPos(Vector3D p) {
-    pos = p.copy();
+  void setPos(PVector p) {
+    pos = p;
   }
  
  int numNodes() {
@@ -124,7 +121,7 @@ VECTORFIELD VectorField = new VECTORFIELD(2, 0.5, 1, 1);
 void setup() {
   size(500, 500) ;
   colorMode(RGB,255,255,255,100) ;
-  ps = new msaPSystem(new Vector3D(width/2, height/2, 0), new Vector3D(), 1, 20, 100) ;
+  ps = new msaPSystem(new PVector(width/2, height/2, 0), new PVector(), 1, 20, 100) ;
   frameRate(30);
   smooth() ;
 }
@@ -139,5 +136,5 @@ void draw() {
 }
 
 void mouseMoved() {
-  ps.setPos(new Vector3D(mouseX, mouseY, 0));
+  ps.setPos(new PVector(mouseX, mouseY, 0));
 }
